@@ -3,8 +3,7 @@
 
 def temporaryDockerRegistry = tempDockerRegistry
 def permanentDockerRegistry = permDockerRegistry
-def nexusRepoHostPort = nexusRepositoryHost
-def nexusRepo = nexusRepository
+
 
 // This update is for Bug ID : 531
 def httpProxy = ''
@@ -17,8 +16,7 @@ node {
   echo "Docker Repository: ${dockerRepo}"
   echo "Docker Image Name: ${dockerImageName}"
   
-  echo "Nexus Host and Port: ${nexusRepositoryHost}"
-  echo "Nexus Repo Name: ${nexusRepository}"
+
   
   echo "SCM Type: ${scmSourceRepo}"
   echo "SCM Path: ${scmPath}"

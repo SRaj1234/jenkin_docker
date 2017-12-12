@@ -235,28 +235,5 @@ node {
   }
   //---------------------------------------
   
-  stage('Publish Jenkins Output to Nexus'){
-    //TODO in code - Tune it later. Dirty solution to identify the Jenkins generated artifacts for Nexus. 
-    //TODO in Jenkins - Needs a Credential with the name "Nexus"
-    //TODO in Nexus web - Created a Hosted Site Repository with the name MEC
-    //TODO - Nexus3 support - Check the Sonatype plugin once released
-    //Nexus is a great component artifact repo. Does not look great dealing with binary documents and intermediate outputs.
-    //The plugin is too weak. It can upload only one file and hence Zipped
-    echo 'Publishing the artifacts...';
-    //def PWD = pwd(); //"${PWD}/artifacts.tar.gz"
-    //sh 'find . -type f -newer Nexus.txt -print0 | tar -czvf artifacts.tar.gz --ignore-failed-read --null -T -'
-    //Fixed for archive overlap issue
-    try{
-      sh 'find . -type f -newer Nexus.txt -print0 | tar -zcvf artifacts.tar.gz --ignore-failed-read --null -T -' 
-    } catch(Exception e) {
-    }
-      //Nexus 2
-    //nexusArtifactUploader artifacts: [[artifactId: "${env.JOB_NAME}", classifier: '', file: 'artifacts.tar.gz', type: 'gzip']], credentialsId: 'Nexus', groupId: 'org.jenkins-ci.main.mec', nexusUrl: '13.55.146.108:8085/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'MEC',version: "${env.BUILD_NUMBER}"
-    //Nexus 3
-    nexusArtifactUploader artifacts: [[artifactId: "${env.JOB_NAME}", classifier: '', file: 'artifacts.tar.gz', type: 'gzip']], credentialsId: 'Nexus', groupId: 'org.jenkins-ci.main.mec', nexusUrl: nexusRepoHostPort, nexusVersion: 'nexus3', protocol: 'http', repository: nexusRepo,version: "${env.BUILD_NUMBER}"
-    sh 'rm Nexus.txt'    
-    //Dirty solution ends
-  }
-  
   
 }

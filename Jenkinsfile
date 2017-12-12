@@ -5,6 +5,8 @@ def temporaryDockerRegistry = tempDockerRegistry
 def permanentDockerRegistry = permDockerRegistry
 def nexusRepoHostPort = nexusRepositoryHost
 def nexusRepo = nexusRepository
+def httpProxy = httpProxy
+def httpsProxy = httpsProxy
   
 node {
   echo "Parameters"

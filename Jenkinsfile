@@ -5,8 +5,10 @@ def temporaryDockerRegistry = tempDockerRegistry
 def permanentDockerRegistry = permDockerRegistry
 def nexusRepoHostPort = nexusRepositoryHost
 def nexusRepo = nexusRepository
-def httpProxy = httpProxy
-def httpsProxy = httpsProxy
+
+// This update is for Bug ID : 531
+def httpProxy = 'http://165.225.104.34:80'
+def httpsProxy = 'https://165.225.104.34:80'
   
 node {
   echo "Parameters"
@@ -21,9 +23,25 @@ node {
   echo "SCM Type: ${scmSourceRepo}"
   echo "SCM Path: ${scmPath}"
   echo "SCM User: ${scmUsername}"
-  echo "HTTPS Proxy: ${httpsProxy}"
+  echo "MEC User: ${userId}"
+  
   echo "HTTP Proxy: ${httpProxy}"
- 
+  echo "HTTPS Proxy: ${httpsProxy}"  
+  
+  //-------------------------------------- big bucket
+  //To escape all Special Charecters in a given input string password
+  def pwdstr = scmPassword
+  scmPassword = pwdstr.replaceAll( /([^a-zA-Z0-9])/, '\\\\$1' )
+  
+  def usrstr = scmUsername
+  scmUsername = usrstr.replaceAll( /([^a-zA-Z0-9])/, '\\\\$1' )
+  
+  def pwdstr2 = scmPassword
+  def usrstr2 = scmUsername
+  scmPassword = pwdstr2.replaceAll( /([@])/, '%40' )
+  scmUsername = usrstr2.replaceAll( /([@])/, '%40' ) 
+  //----------------------------------------
+
   stage('Code Pickup') {
     echo "Source Code Repository Type : ${scmSourceRepo}"
     echo "Source Code Repository Path : ${scmPath}"
@@ -242,4 +260,3 @@ node {
   
   
 }
-

@@ -2,7 +2,7 @@
 //TODO - Make SVN and GIT Checkout steps perfect with Jenkins way. Do not use Shell way.
 
 def temporaryDockerRegistry = '80.158.2.250:443'
-//def permanentDockerRegistry = '127.0.0.1:443'
+def permanentDockerRegistry = '80.158.2.250:443'
 def nexusRepoHostPort = '80.158.2.250:8081'
 def nexusRepo = 'MEC'
 def scmPath = 'https://github.com/kansk/cms.git'
@@ -12,7 +12,7 @@ def scmSourceRepo ='Git'
 node {
   echo "Parameters"
   echo "Temp Docker Registry: ${tempDockerRegistry}"
- // echo "Permenant Docker Registry: ${permDockerRegistry}"
+  echo "Permenant Docker Registry: ${permDockerRegistry}"
   echo "Docker Repository: ${dockerRepo}"
   echo "Docker Image Name: ${dockerImageName}"
   
@@ -192,7 +192,7 @@ node {
   } else if ("${stage}".toUpperCase() == 'DEPLOY') {
     echo 'The requested stage is Deploy. Hence without certifying, the image is pushed to permanent repo'
     //withDockerRegistry([credentialsId: 'docker-registry-login', url: permanentDockerRegistry]) {
-   // docker.withRegistry("https://${permanentDockerRegistry}/", 'docker-registry-login') {
+    docker.withRegistry("https://${permanentDockerRegistry}/", 'docker-registry-login') {
       def pcImg
       stage('Dockerization & Publish') {
         // Let us tag and push the newly built image. Will tag using the image name provided. No need of Docker hostname as it appends itself.

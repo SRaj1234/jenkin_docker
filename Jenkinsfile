@@ -1,13 +1,10 @@
 #!/bin/bash +x
 //TODO - Make SVN and GIT Checkout steps perfect with Jenkins way. Do not use Shell way.
 
-def temporaryDockerRegistry = '80.158.2.250:443'
-def permanentDockerRegistry = '80.158.2.250:443'
-def nexusRepoHostPort = '80.158.2.250:8081'
-def nexusRepo = 'MEC'
-def scmPath = 'https://github.com/kansk/cms.git'
-def scmUsername ='kansk'
-def scmSourceRepo ='Git'
+def temporaryDockerRegistry = tempDockerRegistry
+def permanentDockerRegistry = permDockerRegistry
+def nexusRepoHostPort = nexusRepositoryHost
+def nexusRepo = nexusRepository
   
 node {
   echo "Parameters"

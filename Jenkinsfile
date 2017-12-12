@@ -19,8 +19,8 @@ node {
   echo "SCM Type: ${scmSourceRepo}"
   echo "SCM Path: ${scmPath}"
   echo "SCM User: ${scmUsername}"
+  echo "HTTPS Proxy: ${httpsProxy}"
   echo "HTTP Proxy: ${httpProxy}"
-  echo "HTTPS Proxy: ${httpsProxy}"  
  
   stage('Code Pickup') {
     echo "Source Code Repository Type : ${scmSourceRepo}"
